@@ -75,7 +75,7 @@ export default function Layout({ children }) {
             gtag('config', 'UA-230151227-1');` 
           }}
         />
-        <meta name="google-site-verification" content="epREL7wCjhTc6gAEBGyUjEUJuD4iD0zJeAwKbuWeAg0" />
+        <meta name="google-site-verification" content="MfzVRX7GPLrnihpMsAX31z1r3YSkCTjH77PigpREgG8" />
       </Head>
       <Navbar />
       <main>{children}</main>
