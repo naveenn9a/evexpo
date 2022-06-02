@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://greenevolutioninitiative.com/sitemap.xml
