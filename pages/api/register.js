@@ -18,7 +18,7 @@ export default function handler(req, res) {
 
     transporter.sendMail({
       from: '"Info" <marketing@greenevolutioninitiative.com>', // sender address
-      to: "marketing@greenevolutioninitiative.com", // list of receivers
+      to: "info@greenevolutioninitiative.com", // list of receivers
       subject: `Green Evolution Initiative | ${isDownloadBrochure ? 'Brochure Request': 'New Registration'}`, // Subject line
       html: `
         <div style="background: #eee; padding: 10px;">
