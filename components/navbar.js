@@ -15,10 +15,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollInto = (e, id) => {
-    e.preventDefault();
-    showMenu(false)
-
+  const scrollIntoView = (id) => {
     const element = document.querySelector(id)
     const offset = 50;
     const bodyRect = document.body.getBoundingClientRect().top;
@@ -32,8 +29,22 @@ export default function Navbar() {
     });
   }
 
+  const scrollInto = (e, id) => {
+    e.preventDefault();
+    showMenu(false)
+
+    if(router.pathname != '/') {
+      router.push('/')
+      setTimeout(() => {
+        scrollIntoView(id)
+      }, 100);
+    } else {
+      scrollIntoView(id)
+    }
+  }
+
   return (
-    <header id="header" className={`flex ${offset > 100 ? 'navbar-scrolled' : ''}`}>
+    <header id="header" className={`flex ${offset > 100 ? 'navbar-scrolled' : ''} ${router.pathname.replace('/', '')}`}>
       <div className="flex items-center justify-between w-full px-10 sm:px-0">
         <div id="logo" className="mx-10 h-full flex items-center">
           <img onClick={e => router.push('/')} className='h-[50%] cursor-pointer' src="/logo3.png" alt="Green Evolution Initiative" />

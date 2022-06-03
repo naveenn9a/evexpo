@@ -2,7 +2,7 @@ export default function PromotionPlan() {
   return (
     <>
       <div className="promotion-plan-container">
-        <img src="/assets/banner/7.webp" className='sm:h-[50vh]' alt="" />
+        <img src="/assets/banner/4.webp" className='sm:h-[50vh]' alt="" />
       </div>
       <section id="about-the-show" className="section-bg">
         <div className='container mx-auto px-10 mt-10 sm:px-0'>

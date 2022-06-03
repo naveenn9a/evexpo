@@ -21,7 +21,7 @@ a {
 * {
   box-sizing: border-box;
   font-family: "Jost", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 
@@ -101,11 +101,25 @@ a {
 # Header
 --------------------------------------------------------------*/
 
+#header.our-partners {
+  .anticon-menu {
+    color: #444;
+  }
+
+  .nav-menu a {
+    color: #444;
+  }
+}
+
 .navbar-scrolled {
   background: #fff;
   height: 92px;
   transition: all 0.5s;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  .anticon-menu {
+    color: #444;
+  }
 
   .nav-menu a {
     color: #444;

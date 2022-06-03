@@ -20,6 +20,7 @@ export default function Footer() {
                   <li><i className="ion-ios-arrow-right"></i> <a href="#">About us</a></li>
                   <li><i className="ion-ios-arrow-right"></i> <a href="#">Services</a></li>
                   <li><i className="ion-ios-arrow-right"></i> <Link href="/promotion-plan">Promotion Plans</Link></li>
+                  <li><i className="ion-ios-arrow-right"></i> <Link href="/our-partners">Our Partners</Link></li>
                 </ul>
               </div>
 
