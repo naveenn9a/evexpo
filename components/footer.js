@@ -29,7 +29,7 @@ export default function Footer() {
                 <p>
                   Native promoters Pvt Ltd - #28, Ashirvad Colony, Horamavu, Bengaluru, Karnataka 560016, India <br />
                   <strong>Phone:</strong> +91 9980234506<br />
-                  <strong>Email:</strong> <a className='text-white' href="mailto:marketing@greenevolutioninitiative.com">marketing@greenevolutioninitiative.com</a> <a className='text-white' href="mailto:info@greenevolutioninitiative.com">info@greenevolutioninitiative.com</a><br />
+                  <strong>Email:</strong> <a className='text-white' href="mailto:marketing@evexpogei.com">marketing@evexpogei.com</a> <a className='text-white' href="mailto:info@evexpogei.com">info@evexpogei.com</a><br />
                 </p>
                 <div className="social-links">
                   <a target={"_blank"} rel="noreferrer" href="https://twitter.com/GEIexpo" className="twitter"><i className="fa fa-twitter"></i></a>

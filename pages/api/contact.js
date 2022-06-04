@@ -17,8 +17,8 @@ export default function handler(req, res) {
     let { name, email, company, message, country, phone } = req.body;
 
     transporter.sendMail({
-      from: '"Info" <marketing@greenevolutioninitiative.com>', // sender address
-      to: "info@greenevolutioninitiative.com", // list of receivers
+      from: '"Info" <marketing@evexpogei.com>', // sender address
+      to: "marketing@evexpogei.com", // list of receivers
       subject: "Green Evolution Initiative | Contact us response", // Subject line
       html: `
         <div style="background: #eee; padding: 10px;">

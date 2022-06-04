@@ -409,8 +409,8 @@ export default function Home() {
                 </div>
                 <div className="mt-4 text-xl flex flex-col">
                   <i className="ion-ios-email"></i>
-                  <a className='sm:text-lg' href="mailto:marketing@greenevolutioninitiative.com">marketing@greenevolutioninitiative.com</a>
-                  <a className='sm:text-lg' href="mailto:info@greenevolutioninitiative.com">info@greenevolutioninitiative.com</a>
+                  <a className='sm:text-lg' href="mailto:marketing@evexpogei.com">marketing@evexpogei.com</a>
+                  <a className='sm:text-lg' href="mailto:info@evexpogei.com">info@evexpogei.com</a>
                 </div>
               </div>
             </div>
