@@ -164,7 +164,7 @@ export default function Home() {
             <h1 className='sm:text-lg text-3xl font-[300] text-center mb-0 text-white'><span className="font-[400]">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
           </div>
         </div>
-        <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#358600' }}>
+        <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#880808' }}>
           <Countdown
             date={new Date("2022-06-10T06:00:00")}
             renderer={renderer}
