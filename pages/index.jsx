@@ -166,7 +166,7 @@ export default function Home() {
         </div>
         <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#880808' }}>
           <Countdown
-            date={new Date("2022-06-10T06:00:00")}
+            date={new Date("2022-06-12T06:00:00")}
             renderer={renderer}
           />
         </div>
