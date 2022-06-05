@@ -62,8 +62,8 @@ export default function Home() {
     if (completed) {
       return <div>done</div>;
     } else {
-      return <h1 className='text-xl sm:text-lg font-[200] text-center mb-0 text-white'>
-        Early bird registration ends in <span className='font-[300]'>{days} days and {hours}h {minutes}m {seconds}s</span>
+      return <h1 className='text-2xl sm:text-lg font-[300] text-center mb-0 text-white'>
+        Early bird registration ends in <span className='font-[400]'>{days} days and {hours}h {minutes}m {seconds}s</span>
       </h1>
     }
   };
@@ -161,12 +161,12 @@ export default function Home() {
       <section id="venue-strip" className='h-[125px]'>
         <div className="main-content w-full h-[70px] text-white container px-[150px] sm:px-0 mx-auto flex flex-col items-center justify-center">
           <div className="count-item w-full w-full">
-            <h1 className=' sm:text-lg text-3xl font-[200] text-center mb-0 text-white'><span className="font-[300]">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
+            <h1 className='sm:text-lg text-3xl font-[300] text-center mb-0 text-white'><span className="font-[400]">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
           </div>
         </div>
         <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#358600' }}>
           <Countdown
-            date={new Date("2022-06-24T06:00:00")}
+            date={new Date("2022-06-10T06:00:00")}
             renderer={renderer}
           />
         </div>
