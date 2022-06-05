@@ -7,6 +7,7 @@ import axios from 'axios'
 import * as EmailValidator from 'email-validator';
 import { message, Tag } from 'antd';
 import { Register } from './../components/register'
+import Countdown from 'react-countdown';
 
 export default function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay(2)])
@@ -56,6 +57,16 @@ export default function Home() {
         message.error('Error submitting. Please try again');
       })
   }
+
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <div>done</div>;
+    } else {
+      return <h1 className='text-xl sm:text-lg font-[200] text-center mb-0 text-white'>
+        Early bird registration ends in <span className='font-[300]'>{days} days and {hours}h {minutes}m {seconds}s</span>
+      </h1>
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -147,11 +158,17 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="venue-strip" className=''>
-        <div className="main-content w-full h-full text-white container px-[150px] sm:px-0 mx-auto flex sm:flex-col items-center justify-center">
+      <section id="venue-strip" className='h-[125px]'>
+        <div className="main-content w-full h-[70px] text-white container px-[150px] sm:px-0 mx-auto flex flex-col items-center justify-center">
           <div className="count-item w-full w-full">
-            <h1 className='text-3xl sm:text-xl font-light text-center mb-0 text-white'><span className="font-bold">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
+            <h1 className=' sm:text-lg text-3xl font-[200] text-center mb-0 text-white'><span className="font-[300]">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
           </div>
+        </div>
+        <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#358600' }}>
+          <Countdown
+            date={new Date("2022-06-24T06:00:00")}
+            renderer={renderer}
+          />
         </div>
       </section>
 
