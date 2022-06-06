@@ -52,12 +52,12 @@ export default function Navbar() {
         <MenuOutlined className='sm:block hidden sm:mr-5 sm:text-xl' onClick={e => showMenu(!isMenuOpen)} />
         <nav id="nav-menu-container" className='sm:hidden'>
           <ul className="nav-menu flex">
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#about-the-show') }} href="#">About Show</a></li>
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#about-the-organiser') }} href="#">Organiser</a></li>
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#why-exhibit') }} href="#">Why Exhibit</a></li>
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#exhibitor-profile') }} href="#">Exhibitor Profile</a></li>
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#about-the-venue') }} href="#">Venue</a></li>
-            <li><a className='text-xs text-[14px] p-0 mr-2 capitalize' onClick={e => { scrollInto(e, '#contact') }} href="#">Get in Touch</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#about-the-show') }} href="#">About Show</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#about-the-organiser') }} href="#">Organiser</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#why-exhibit') }} href="#">Why Exhibit</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#exhibitor-profile') }} href="#">Exhibitor Profile</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#about-the-venue') }} href="#">Venue</a></li>
+            <li className='mr-4'><a className='text-sm text-[16px] p-0 capitalize' onClick={e => { scrollInto(e, '#contact') }} href="#">Get in Touch</a></li>
           </ul>
         </nav>
         <nav id="nav-menu-container-mobile" className={`sm:block hidden ${isMenuOpen ? 'show' : ''}`}>

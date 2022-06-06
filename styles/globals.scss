@@ -157,6 +157,20 @@ a {
 .nav-menu li {
   position: relative;
   white-space: nowrap;
+
+  text-align: center;
+  padding: 5px 10px;
+  transition: .3s;
+  border-radius: 50px;
+
+  &:hover{
+    cursor: pointer;
+    background: #007500;
+
+    a {
+      color: white !important;
+    }
+  }
 }
 
 .nav-menu>li {
@@ -744,7 +758,7 @@ a {
   overflow: hidden;
   position: sticky;
   top: 50px;
-  z-index: 100;
+  z-index: 10;
 }
 
 .text-primary {
@@ -836,7 +850,7 @@ a {
 #nav-menu-container-mobile {
   position: fixed;
   width: 100vw;
-  height: 300px;
+  height: 360px;
   top: -100%;
   left: 0;
   background: #000;
