@@ -10,6 +10,7 @@ import Contact from './../components/contact'
 import VisitorsProfile from '../components/visitorsProfile';
 import { useEffect } from 'react';
 import axios from 'axios'
+import Script from 'next/script'
 
 const Countdown = dynamic(() => import("react-countdown"), {
   ssr: false,
@@ -77,7 +78,7 @@ export default function Home() {
 
       <NoSSR>
         <div className="ae-embed-org-plugin" data-button-text="" data-type="org" data-title="false" data-id="19643605" data-height=" data-width=" data-transparency="true" data-header="0" data-border="0" data-layout="center" style={{ "width": "100%" }}></div>
-        <script src="https://allevents.in/scripts/public/ae-plugin-embed-lib.js"></script>
+        <Script src="https://allevents.in/scripts/public/ae-plugin-embed-lib.js" />
       </NoSSR>
 
       <section id="about-the-show" className="section-bg">
