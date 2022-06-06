@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Register isDownloadBrochure={isDownloadBrochure} isModalVisible={isRegisterOpen} handleCancel={e => { toggleRegisterDialog(false); setDownloadBrochure(false) }} />
-      <Banner />
+      <Banner toggleRegistration={toggleRegisterDialog} setDownloadBrochure={setDownloadBrochure} />
 
       <section id="venue-strip" className='h-[125px]'>
         <div className="main-content w-full h-[70px] text-white container px-[150px] sm:px-0 mx-auto flex flex-col items-center justify-center">

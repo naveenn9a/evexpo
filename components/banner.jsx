@@ -2,7 +2,7 @@ import React from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 
-export default function Banner({ }) {
+export default function Banner({ toggleRegistration: toggleRegisterDialog, setDownloadBrochure }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay(2)])
 
   return <>
