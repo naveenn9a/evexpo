@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -27,7 +26,7 @@ export default function Footer() {
               <div className="footer-contact">
                 <h4>Contact Us</h4>
                 <p>
-                  Native promoters Pvt Ltd - #28, Ashirvad Colony, Horamavu, Bengaluru, Karnataka 560016, India <br />
+                  Native promoters Pvt Ltd - #104, Mallappa Towers, opp Ragavendra Swamy Temple, East Park Road, 8th Cross, Malleshwaram, Bengaluru <br />
                   <strong>Phone:</strong> +91 9980234506<br />
                   <strong>Email:</strong> <a className='text-white' href="mailto:marketing@evexpogei.com">marketing@evexpogei.com</a> <a className='text-white' href="mailto:info@evexpogei.com">info@evexpogei.com</a><br />
                 </p>

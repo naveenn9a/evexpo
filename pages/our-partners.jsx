@@ -6,9 +6,9 @@ export default function Home() {
   var settings = {
     infinite: true,
     speed: 1000,
-    slidesToShow: 4,
+    slidesToShow: 7,
     slidesToScroll: 1,
-    autoPlaySpeed: 2000,
+    autoPlaySpeed: 1000,
     autoplay: true,
     adaptiveHeight: true,
     arrows: false
@@ -25,6 +25,51 @@ export default function Home() {
 
         <div className="main-content container mx-auto">
           <Slider {...settings}>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/4wavessupport_partner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/fanstreet-digitalpartner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/nativepromoters-organizedandmarketedby.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/orion-venue.jpg"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/spykke-chargingpartner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/4wavessupport_partner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/fanstreet-digitalpartner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/nativepromoters-organizedandmarketedby.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/orion-venue.jpg"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/spykke-chargingpartner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/4wavessupport_partner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/fanstreet-digitalpartner.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/nativepromoters-organizedandmarketedby.png"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/orion-venue.jpg"} alt="sfs" />
+            </div>
+            <div className="react-slick-slide">
+              <img src={"/assets/logos/spykke-chargingpartner.png"} alt="sfs" />
+            </div>
             <div className="react-slick-slide">
               <img src={"/assets/logos/4wavessupport_partner.png"} alt="sfs" />
             </div>

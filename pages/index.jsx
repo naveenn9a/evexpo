@@ -1,20 +1,39 @@
 import styles from '../styles/Home.module.css'
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
 import Slider from "react-slick";
-import { useState, useRef } from 'react'
-import axios from 'axios'
-import * as EmailValidator from 'email-validator';
-import { message, Tag } from 'antd';
+import { useState } from 'react'
 import { Register } from './../components/register'
-import Countdown from 'react-countdown';
+import dynamic from 'next/dynamic'
+import NoSSR from './../components/NoSsr'
+import OurPartners from './../pages/our-partners';
+import Banner from './../components/banner'
+import Contact from './../components/contact'
+import VisitorsProfile from '../components/visitorsProfile';
+import { useEffect } from 'react';
+import axios from 'axios'
+
+const Countdown = dynamic(() => import("react-countdown"), {
+  ssr: false,
+});
 
 export default function Home() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay(2)])
-  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "", company: "", phone: "", country: "" })
-  const [isContactSubmitting, setContactPending] = useState(false)
   const [isRegisterOpen, toggleRegisterDialog] = useState(false)
   const [isDownloadBrochure, setDownloadBrochure] = useState(false)
+  const [visitors, setSiteVisitors] = useState(100)
+
+  useEffect(() => {
+    if (!localStorage.getItem('visited')) {
+      localStorage.setItem('visited', true)
+      axios.post('/api/visitors')
+        .then(data => {
+          setSiteVisitors(data.data);
+        })
+    } else {
+      axios.get('/api/visitors')
+        .then(data => {
+          setSiteVisitors(data.data);
+        })
+    }
+  }, [])
 
   var settings = {
     infinite: true,
@@ -27,42 +46,11 @@ export default function Home() {
     arrows: false
   };
 
-  const setFormData = (e) => {
-    setContactForm({ ...contactForm, [e.target.name]: e.target.value })
-  }
-
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    if (contactForm.message.trim().length == 0 || contactForm.name.trim().length == 0 || contactForm.email.trim().length == 0 || contactForm.phone.trim().length == 0 || contactForm.country.trim().length == 0) {
-      message.warn('Please enter all the fields')
-      return;
-    }
-
-    if (!EmailValidator.validate(contactForm.email)) {
-      message.warn('Please enter valid email.')
-      return;
-    }
-
-    setContactPending(true);
-
-    axios.post('/api/contact', contactForm)
-      .then(e => {
-        setContactPending(false);
-        message.success('Submitted!');
-        setContactForm({ name: "", email: "", message: "", company: "", phone: "", country: "" })
-      })
-      .catch(e => {
-        setContactPending(false);
-        message.error('Error submitting. Please try again');
-      })
-  }
-
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
-      return <div>done</div>;
+      return <div>Registration ended.</div>;
     } else {
-      return <h1 className='text-2xl sm:text-lg font-[300] text-center mb-0 text-white'>
+      return <h1 className='text-2xl sm:text-lg font-[300] text-center mb-0'>
         Early bird registration ends in <span className='font-[400]'>{days} days and {hours}h {minutes}m {seconds}s</span>
       </h1>
     }
@@ -71,92 +59,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Register isDownloadBrochure={isDownloadBrochure} isModalVisible={isRegisterOpen} handleCancel={e => { toggleRegisterDialog(false); setDownloadBrochure(false) }} />
-      <div ref={emblaRef} className="embla">
-        <div className="embla__container sm:h-[50vh]">
-          {/* <div className="embla__slide">
-            // <div className="slider-overlay"></div>
-            <img className='sm:h-[50vh]' src={"/assets/banner/0.jpg"} alt="Green evolution initiative" />
-            <div className='info sm:w-[80%] sm:left-[10%] sm:top-[60%]'>
-              <h1 className='info-header text-3xl sm:text-lg font-bold'>
-                Driving Top-Line Growth Through Electric Vehicles Transformation
-              </h1>
-              <p className='info-para text-normal sm:text-[12px]'>
-                
-              </p>
-              <div className="buttons flex flex-row sm:flex-col">
-                <button className='mb-2 button-28 w-[200px]' onClick={e => { toggleRegisterDialog(true, true); setDownloadBrochure(true); }}>Request Brochure</button>
-                <button className='register button-28 w-[200px]' onClick={e => toggleRegisterDialog(true)}>Register Online</button>
-              </div>
-            </div>
-          </div> */}
-          <div className="embla__slide">
-            {/* <div className="slider-overlay"></div> */}
-            <img className='sm:h-[50vh]' src={"/assets/banner/1.webp"} alt="Green evolution initiative" />
-            <div className='info sm:w-[80%] sm:left-[10%]'>
-              <h1 className='info-header text-3xl sm:text-lg font-bold'>
-                Driving Top-Line Growth Through Electric Vehicles Transformation
-              </h1>
-              <p className='info-para text-xl font-light sm:text-[12px]'>
-                EV Expo gave a platform to B2B & B2C EV companies to  generate more qualified leads, strengthen their competitive advantage, and drive increased revenue.
-              </p>
-              <div className="buttons flex flex-row sm:flex-col">
-                <button className='mb-2 button-28 w-[200px]' onClick={e => { toggleRegisterDialog(true, true); setDownloadBrochure(true); }}>Request Brochure</button>
-                <button className='register button-28 w-[200px]' onClick={e => toggleRegisterDialog(true)}>Register Online</button>
-              </div>
-            </div>
-          </div>
-          <div className="embla__slide">
-            {/* <div className="slider-overlay"></div> */}
-            <img className='sm:h-[50vh]' src={"/assets/banner/2.webp"} alt="Green evolution initiative" />
-            <div className='info sm:w-[80%] sm:left-[10%]'>
-              <h1 className='info-header text-3xl sm:text-lg font-bold'>
-                It’s time to plug-in to the new road ahead!
-              </h1>
-              {/* <p className='info-para text-normal sm:text-[12px]'>
-                Dedicated to the entire eMobility ecosystem that brings the entire EV value chain under one roof to network with major industry players and identify numerous business opportunities in a hypercompetitive EV market.
-              </p> */}
-              <div className="buttons flex flex-row sm:flex-col">
-                <button className='mb-2 button-28 w-[200px]' onClick={e => { toggleRegisterDialog(true, true); setDownloadBrochure(true); }}>Request Brochure</button>
-                <button className='register button-28 w-[200px]' onClick={e => toggleRegisterDialog(true)}>Register Online</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="embla__slide">
-            {/* <div className="slider-overlay"></div> */}
-            <img className='sm:h-[50vh]' src={"/assets/banner/3.webp"} alt="Green evolution initiative" />
-            <div className='info sm:w-[80%] sm:left-[10%]'>
-              <h1 className='info-header text-3xl sm:text-lg font-bold'>
-                It’s time for a new generation of personal transportation
-              </h1>
-              {/* <p className='info-para text-normal sm:text-[12px]'>
-                Dedicated to the entire eMobility ecosystem that brings the entire EV value chain under one roof to network with major industry players and identify numerous business opportunities in a hypercompetitive EV market.
-              </p>
-              */}
-              <div className="buttons flex flex-row sm:flex-col">
-                <button className='mb-2 button-28 w-[200px]' onClick={e => { toggleRegisterDialog(true, true); setDownloadBrochure(true); }}>Request Brochure</button>
-                <button className='register button-28 w-[200px]' onClick={e => toggleRegisterDialog(true)}>Register Online</button>
-              </div>
-            </div>
-          </div>
-          <div className="embla__slide">
-            {/* <div className="slider-overlay"></div> */}
-            <img className='sm:h-[50vh]' src={"/assets/banner/4.webp"} alt="Green evolution initiative" />
-            <div className='info sm:w-[80%] sm:left-[10%]'>
-              <h1 className='info-header text-3xl sm:text-lg font-bold'>
-                It’s time for something better, faster, and simpler
-              </h1>
-              {/* <p className='info-para text-normal sm:text-[12px]'>
-                Dedicated to the entire eMobility ecosystem that brings the entire EV value chain under one roof to network with major industry players and identify numerous business opportunities in a hypercompetitive EV market.
-              </p> */}
-              <div className="buttons flex flex-row sm:flex-col">
-                <button className='mb-2 button-28 w-[200px]' onClick={e => { toggleRegisterDialog(true, true); setDownloadBrochure(true); }}>Request Brochure</button>
-                <button className='register button-28 w-[200px]' onClick={e => toggleRegisterDialog(true)}>Register Online</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Banner />
 
       <section id="venue-strip" className='h-[125px]'>
         <div className="main-content w-full h-[70px] text-white container px-[150px] sm:px-0 mx-auto flex flex-col items-center justify-center">
@@ -164,13 +67,18 @@ export default function Home() {
             <h1 className='sm:text-lg text-3xl font-[300] text-center mb-0 text-white'><span className="font-[400]">24, 25 & 26th June</span> at Orion Mall, Rajajinagara, Bengaluru</h1>
           </div>
         </div>
-        <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: '#880808' }}>
+        <div className="count-down w-full py-6 px-10 h-[55px] flex flex-col items-center justify-center" style={{ background: 'yellowgreen' }}>
           <Countdown
             date={new Date("2022-06-12T06:00:00")}
             renderer={renderer}
           />
         </div>
       </section>
+
+      <NoSSR>
+        <div className="ae-embed-org-plugin" data-button-text="" data-type="org" data-title="false" data-id="19643605" data-height=" data-width=" data-transparency="true" data-header="0" data-border="0" data-layout="center" style={{ "width": "100%" }}></div>
+        <script src="https://allevents.in/scripts/public/ae-plugin-embed-lib.js"></script>
+      </NoSSR>
 
       <section id="about-the-show" className="section-bg">
         <div className='container mx-auto px-10 mt-10 sm:px-0'>
@@ -282,22 +190,22 @@ export default function Home() {
           </div>
           <div className="mt-[50px] px-[120px] sm:px-0 portfolio-container flex sm:flex-col">
             <div className="w-full mb-1 portfolio-item sm:mr-0 mr-1">
-              <h1 className='text-xl text-white font-bold'>Zero Tailpipe Emissions</h1>
-              <p className='sm:text-lg text-justify'>Driving an electric vehicle can help you reduce your carbon footprint because there will be zero tailpipe emissions. You can reduce the environmental impact of charging your vehicle further by choosing renewable energy options for home electricity.</p>
+              <h1 className='text-xl text-white'>Zero Tailpipe Emissions</h1>
+              <p className='sm:text-lg text-xl font-[300] text-justify'>Driving an electric vehicle can help you reduce your carbon footprint because there will be zero tailpipe emissions. You can reduce the environmental impact of charging your vehicle further by choosing renewable energy options for home electricity.</p>
             </div>
             <div className="w-full portfolio-item mb-1">
-              <h1 className='text-xl text-white font-bold'>Low maintenance cost</h1>
-              <p className='sm:text-lg text-justify'>Electric vehicles have very low maintenance costs because they don’t have as many moving parts as an internal combustion vehicle. The servicing requirements for electric vehicles are lesser than the conventional petrol or diesel vehicles. Therefore, the yearly cost of running an electric vehicle is significantly low.</p>
+              <h1 className='text-xl text-white'>Low maintenance cost</h1>
+              <p className='sm:text-lg text-xl font-[300] text-justify'>Electric vehicles have very low maintenance costs because they don’t have as many moving parts as an internal combustion vehicle. The servicing requirements for electric vehicles are lesser than the conventional petrol or diesel vehicles. Therefore, the yearly cost of running an electric vehicle is significantly low.</p>
             </div>
           </div>
           <div className="px-[120px] sm:px-0 portfolio-container flex sm:flex-col">
             <div className="w-full sm:mr-0 sm:mb-1 portfolio-item mr-1">
-              <h1 className='text-xl text-white font-bold'>Electric Vehicles are easy to drive and quiet</h1>
-              <p className='sm:text-lg text-justify'>Electric vehicles don’t have gears and are very convenient to drive. There are no complicated controls, just accelerate, brake, and steer. When you want to charge your vehicle, just plug it into a home or public charger. Electric vehicles are also quiet, so they reduce noise pollution that traditional vehicles contribute to.</p>
+              <h1 className='text-xl text-white'>Electric Vehicles are easy to drive and quiet</h1>
+              <p className='sm:text-lg text-xl font-[300] text-justify'>Electric vehicles don’t have gears and are very convenient to drive. There are no complicated controls, just accelerate, brake, and steer. When you want to charge your vehicle, just plug it into a home or public charger. Electric vehicles are also quiet, so they reduce noise pollution that traditional vehicles contribute to.</p>
             </div>
             <div className="w-full sm:mb-1 portfolio-item">
-              <h1 className='text-xl text-white font-bold'>No noise pollution</h1>
-              <p className='sm:text-lg text-justify'>Electric vehicles have the silent functioning capability as there is no engine under the hood. No engine means no noise. The electric motor functions so silently that you need to peek into your instrument panel to check if it is ON. Electric vehicles are so silent that manufacturers have to add false sounds in order to make them safe for pedestrians.</p>
+              <h1 className='text-xl text-white'>No noise pollution</h1>
+              <p className='sm:text-lg text-xl font-[300] text-justify'>Electric vehicles have the silent functioning capability as there is no engine under the hood. No engine means no noise. The electric motor functions so silently that you need to peek into your instrument panel to check if it is ON. Electric vehicles are so silent that manufacturers have to add false sounds in order to make them safe for pedestrians.</p>
             </div>
           </div>
         </div>
@@ -335,12 +243,6 @@ export default function Home() {
             <div className="react-slick-slide">
               <img src={"/assets/exhibitors/5.webp"} alt="sfs" />
             </div>
-            <div className="react-slick-slide">
-              <img src={"/assets/exhibitors/1.webp"} alt="sfs" />
-            </div>
-            <div className="react-slick-slide">
-              <img src={"/assets/exhibitors/2.webp"} alt="sfs" />
-            </div>
           </Slider>
         </div>
       </section>
@@ -368,98 +270,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <VisitorsProfile />
+      <div className="our-partners">
+        <OurPartners />
+      </div>
+      <Contact />
 
-      <section id="visitors-profile" className="">
-        <div className='container mx-auto px-10 mt-10 sm:px-0 sm:mt-5'>
-          <div className="section-header">
-            <h3 className=''>Visitors Profile</h3>
-          </div>
-          <div className="main-content text-center px-[50px] py-[50px] sm:px-5 sm:py-0">
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Charging Station Manufacture</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Component Manufacture</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Component Supplier</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Critical Power Infrastructure</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Design and Simulation</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Distributor</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Drive train</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Electrical Vehicle Manufacturer</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Engineering Consultancy</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Fuel Cell</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Hybrid Vehicle Manufacture</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Magnetics</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Power Generation</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Motors</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Automation Equipment</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Automotive components</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Automotive Manufacturers</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery components</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery manufactures</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery materials</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery Operated Auto</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery Pack Assembler</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Battery Pack Integrator</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Cabling & Connectors</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">OEMs</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Power Management</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Power monitoring/ Distribution</Tag>
-            <Tag color={"#358600"} className="sm:text-sm sm:px-2 sm:py-1 sm:m-1 text-lg px-5 py-2 m-2">Renewable energy Technology</Tag>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="mt-10 section-bg">
-        <div className='container mx-auto px-10 sm:px-5'>
-          <div className="section-header">
-            <h3>Contact Us</h3>
-            <p className='text-lg'>Want to efficiently engage and connect with your team? Contact our team! </p>
-          </div>
-          <div className="flex px-[80px] sm:flex-col sm:px-5">
-            <div className="w-full">
-              <h3 className="font-bold text-center text-2xl">Get in touch</h3>
-              <div className="contact-info  mb-5">
-                <p className=' w-full mx-auto text-xl sm:text-lg'>
-                  Native promoters Pvt Ltd - #28, Ashirvad Colony, Horamavu, Bengaluru, Karnataka 560016, India
-                </p>
-                <div className=" mt-4 text-xl flex flex-col">
-                  <i className="ion-ios-telephone"></i>
-                  <a className='sm:text-lg' href="tel:+919980234506">+91 9980234506</a>
-                </div>
-                <div className="mt-4 text-xl flex flex-col">
-                  <i className="ion-ios-email"></i>
-                  <a className='sm:text-lg' href="mailto:marketing@evexpogei.com">marketing@evexpogei.com</a>
-                  <a className='sm:text-lg' href="mailto:info@evexpogei.com">info@evexpogei.com</a>
-                </div>
-              </div>
-            </div>
-            <div className="w-full text-center">
-              <h3 className='font-bold text-2xl sm:text-xl'>Leave us a message</h3>
-              <div className="form">
-                <form action="" method="post" role="form" className="contactForm">
-                  <div className="">
-                    <input type="text" value={contactForm.name} onChange={setFormData} name="name" className="w-[80%] sm:w-[100%] mb-2" id="name" placeholder="Full name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  </div>
-                  <div className="">
-                    <input type="email" value={contactForm.email} onChange={setFormData} className="w-[80%] sm:w-[100%] mb-2" name="email" id="email" placeholder="Email address" data-rule="email" data-msg="Please enter a valid email" />
-                  </div>
-                  <div className="">
-                    <input type="phone" value={contactForm.phone} onChange={setFormData} className="w-[80%] sm:w-[100%] mb-2" name="phone" id="phone" placeholder="Phone number" data-rule="phone" data-msg="Please enter a valid email" />
-                  </div>
-                  <div className="">
-                    <input type="text" value={contactForm.company} onChange={setFormData} className="w-[80%] sm:w-[100%] mb-2" name="company" id="company" placeholder="Company name" />
-                  </div>
-                  <div className="">
-                    <input type="text" value={contactForm.country} onChange={setFormData} className="w-[80%] sm:w-[100%] mb-2" name="country" id="country" placeholder="Country" />
-                  </div>
-                  <div className="">
-                    <textarea value={contactForm.message} onChange={setFormData} className="w-[80%] sm:w-[100%] mb-2" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                  </div>
-                  <div className=""><button disabled={isContactSubmitting} onClick={submitForm} type="submit">{isContactSubmitting ? 'Please wait...' : 'Send Message'}</button></div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="visitor-count-fab-button">
+        <span><span className='font-bold'>{visitors}</span> users visited </span>
+      </div>
     </div>
   )
 }

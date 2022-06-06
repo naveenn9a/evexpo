@@ -76,6 +76,7 @@ export default function Layout({ children }) {
           }}
         />
         <meta name="google-site-verification" content="MfzVRX7GPLrnihpMsAX31z1r3YSkCTjH77PigpREgG8" />
+        <script async defer src="https://allevents.in/scripts/public/ae-plugin-embed-lib.js"></script>
       </Head>
       <Navbar />
       <main>{children}</main>
